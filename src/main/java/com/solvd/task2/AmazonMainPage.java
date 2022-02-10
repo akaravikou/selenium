@@ -15,6 +15,9 @@ public class AmazonMainPage {
     @FindBy(css = "#nav-search-submit-button")
     private WebElement searchButton;
 
+/*    @FindBy(css = "#nav-link-accountList")
+    private WebElement signInButton;*/
+
     public AmazonMainPage(WebDriver driver){
         PageFactory.initElements(driver, this);
         this.driver = driver;
@@ -28,4 +31,8 @@ public class AmazonMainPage {
     public void clickSearchButton(){
         searchButton.click();
     }
+
+/*    public void clickSignInButton() {
+        signInButton.click();
+    }*/
 }
