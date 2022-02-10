@@ -11,14 +11,14 @@ public class SearchResultPage {
 
     public WebDriver driver;
 
+    @FindBy(css = "[class*='s-matching-dir sg-col-16-of-20']>.sg-col-inner")
+    private List<WebElement> productBlocks;
+
     public SearchResultPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
         this.driver.get(driver.getCurrentUrl());
     }
-
-    @FindBy(css = "[class*='s-matching-dir sg-col-16-of-20']>.sg-col-inner")
-    private List<WebElement> productBlocks;
 
     public List<WebElement> getProductBlocks(){
         return productBlocks;

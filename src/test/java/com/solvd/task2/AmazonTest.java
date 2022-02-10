@@ -46,7 +46,6 @@ public class AmazonTest {
 
     @AfterMethod
     public void complete(){
-        driver.close();
         driver.quit();
     }
 }
