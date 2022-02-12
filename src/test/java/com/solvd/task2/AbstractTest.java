@@ -35,8 +35,7 @@ public class AbstractTest {
         AbstractPage.sendKeys(driver, signInPage.getPasswordField(), "experiment");
         AbstractPage.buttonClick(driver, signInPage.getSignInButton());
 
-        ProfileStartPage profileStartPage = new ProfileStartPage(driver);
-        String user = profileStartPage.getUserName();
+        String user = amazonMainPage.getUserName();
         Assert.assertEquals(user, "Hello, Anton");
     }
 

@@ -18,6 +18,9 @@ public class AmazonMainPage {
     @FindBy(css = "#nav-link-accountList")
     private WebElement signInButton;
 
+    @FindBy(css = "#nav-link-accountList-nav-line-1")
+    private WebElement accountButton;
+
     public AmazonMainPage(WebDriver driver){
         PageFactory.initElements(driver, this);
         this.driver = driver;
@@ -34,5 +37,10 @@ public class AmazonMainPage {
 
     public WebElement getSignInButton() {
         return signInButton;
+    }
+
+    public String getUserName(){
+        String userName = accountButton.getText();
+        return userName;
     }
 }
