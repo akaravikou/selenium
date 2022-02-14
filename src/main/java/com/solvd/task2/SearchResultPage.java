@@ -14,13 +14,20 @@ public class SearchResultPage {
     @FindBy(css = "[class*='s-matching-dir sg-col-16-of-20']>.sg-col-inner")
     private List<WebElement> productBlocks;
 
+    @FindBy(css = "h2>[href *= '/One-Percenter-Revolution-Dave-Nichols-ebook/']")
+    private WebElement firstSearchResult;
+
     public SearchResultPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
-        this.driver = driver;
-        this.driver.get(driver.getCurrentUrl());
+        driver = driver;
+        driver.get(driver.getCurrentUrl());
     }
 
     public List<WebElement> getProductBlocks(){
         return productBlocks;
+    }
+
+    public WebElement getFirstSearchResult() {
+        return firstSearchResult;
     }
 }

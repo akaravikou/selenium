@@ -23,8 +23,8 @@ public class AmazonMainPage {
 
     public AmazonMainPage(WebDriver driver){
         PageFactory.initElements(driver, this);
-        this.driver = driver;
-        this.driver.get("https://www.amazon.com/");
+        driver = driver;
+        driver.get("https://www.amazon.com/");
     }
 
     public void enterInput(String itemName){
@@ -38,6 +38,10 @@ public class AmazonMainPage {
     public WebElement getSignInButton() {
         return signInButton;
     }
+
+    public WebElement getSearchInput() { return searchInput; }
+
+    public WebElement getSearchButton() { return searchButton; }
 
     public String getUserName(){
         String userName = accountButton.getText();

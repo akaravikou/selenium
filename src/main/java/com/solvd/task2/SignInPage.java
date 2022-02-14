@@ -23,8 +23,8 @@ public class SignInPage {
 
     public SignInPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
-        this.driver = driver;
-        this.driver.get(driver.getCurrentUrl());
+        driver = driver;
+        driver.get(driver.getCurrentUrl());
     }
 
     public WebElement getEmailMobileField(){
