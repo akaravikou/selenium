@@ -12,23 +12,25 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class AbstractTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractTest.class);
-
-    private WebDriver driver;
+    private final Map<Long, WebDriver> threadMap = new HashMap<>();
 
     @BeforeMethod
     public void setup(){
         System.setProperty("webdriver.chrome.driver", "/Users/akaravikou/Documents/selenium_old/chromedriver");
-        driver = new ChromeDriver();
+        threadMap.put(Thread.currentThread().getId(), new ChromeDriver());
     }
 
     @Test
     public void checkSignInTest(){
+        WebDriver driver = threadMap.get(Thread.currentThread().getId());
         AmazonMainPage amazonMainPage = new AmazonMainPage(driver);
         AbstractPage.buttonClick(driver, amazonMainPage.getSignInButton());
 
@@ -47,6 +49,7 @@ public class AbstractTest {
 
     @Test
     public void checkAddItemInBasketTest(){
+        WebDriver driver = threadMap.get(Thread.currentThread().getId());
         AmazonMainPage amazonMainPage = new AmazonMainPage(driver);
         AbstractPage.buttonClick(driver, amazonMainPage.getSearchInput());
         AbstractPage.sendKeys(driver, amazonMainPage.getSearchInput(), "One Percenter Revolution 21st Century");
@@ -76,6 +79,7 @@ public class AbstractTest {
 
     @Test(dataProvider = "typeOfClothing")
     public void checkSearchTypeOfClothingTest(String type){
+        WebDriver driver = threadMap.get(Thread.currentThread().getId());
         AmazonMainPage amazonMainPage = new AmazonMainPage(driver);
         AbstractPage.buttonClick(driver, amazonMainPage.getSearchInput());
         AbstractPage.sendKeys(driver, amazonMainPage.getSearchInput(), type);
@@ -87,8 +91,8 @@ public class AbstractTest {
 
         SoftAssert softAssert = new SoftAssert();
         searchItems.forEach(searchItem -> {
-            softAssert.assertTrue(searchItem.getText().toLowerCase(Locale.ROOT).contains(type.toLowerCase(Locale.ROOT)),
-                    String.format("There are no products with this title", type));
+            softAssert.assertTrue(searchItem.getText().toLowerCase(Locale.ROOT).contains(type.toLowerCase(Locale.ROOT)));
+                    LOGGER.info("This product doesn't contain %s" + type);
             LOGGER.info(searchItem.getText());
         });
         softAssert.assertAll();
@@ -96,6 +100,7 @@ public class AbstractTest {
 
     @AfterMethod
     public void complete(){
+        WebDriver driver = threadMap.get(Thread.currentThread().getId());
         driver.quit();
     }
 }
