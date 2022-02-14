@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -66,6 +67,31 @@ public class AbstractTest {
 
         SignInPage signInPage = new SignInPage(driver);
         softAssert.assertTrue(signInPage.getEmailMobileField().getText().toLowerCase(Locale.ROOT).contains("email or mobile phone number"));
+    }
+
+    @DataProvider(name = "typeOfClothing")
+    public Object[][] type() {
+        return new Object[][]{{"t-shirt"}, {"pants"}, {"socks"}, {"hats"}, {"sweaters"}, {"hoodies"}, {"footwear"}};
+    }
+
+    @Test(dataProvider = "typeOfClothing")
+    public void checkSearchTypeOfClothingTest(String type){
+        AmazonMainPage amazonMainPage = new AmazonMainPage(driver);
+        AbstractPage.buttonClick(driver, amazonMainPage.getSearchInput());
+        AbstractPage.sendKeys(driver, amazonMainPage.getSearchInput(), type);
+        AbstractPage.buttonClick(driver, amazonMainPage.getSearchButton());
+
+        SearchResultPage searchResultPage = new SearchResultPage(driver);
+        List<WebElement> searchItems = searchResultPage.getProductBlocks();
+        Assert.assertFalse(searchItems.isEmpty(), "There are no products with this type.");
+
+        SoftAssert softAssert = new SoftAssert();
+        searchItems.forEach(searchItem -> {
+            softAssert.assertTrue(searchItem.getText().toLowerCase(Locale.ROOT).contains(type.toLowerCase(Locale.ROOT)),
+                    String.format("There are no products with this title", type));
+            LOGGER.info(searchItem.getText());
+        });
+        softAssert.assertAll();
     }
 
     @AfterMethod
