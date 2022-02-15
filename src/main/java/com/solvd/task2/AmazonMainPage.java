@@ -7,8 +7,6 @@ import org.openqa.selenium.support.PageFactory;
 
 public class AmazonMainPage {
 
-    public WebDriver driver;
-
     @FindBy(css = "#twotabsearchtextbox")
     private WebElement searchInput;
 
@@ -23,8 +21,7 @@ public class AmazonMainPage {
 
     public AmazonMainPage(WebDriver driver){
         PageFactory.initElements(driver, this);
-        driver = driver;
-        driver.get("https://www.amazon.com/");
+        driver.get(PropertyReader.readProperty("url"));
     }
 
     public void enterInput(String itemName){
@@ -44,7 +41,6 @@ public class AmazonMainPage {
     public WebElement getSearchButton() { return searchButton; }
 
     public String getUserName(){
-        String userName = accountButton.getText();
-        return userName;
+        return accountButton.getText();
     }
 }

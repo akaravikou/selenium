@@ -15,7 +15,6 @@ public class ShoppingCartPage {
 
     public ShoppingCartPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
-        driver = driver;
         driver.get(driver.getCurrentUrl());
     }
 

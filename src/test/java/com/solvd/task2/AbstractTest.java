@@ -2,45 +2,33 @@ package com.solvd.task2;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
-public class AbstractTest {
+
+public class AbstractTest extends BaseTest{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractTest.class);
-    private final Map<Long, WebDriver> threadMap = new HashMap<>();
-
-    @BeforeMethod
-    public void setup(){
-        System.setProperty("webdriver.chrome.driver", "/Users/akaravikou/Documents/selenium_old/chromedriver");
-        threadMap.put(Thread.currentThread().getId(), new ChromeDriver());
-    }
 
     @Test
     public void checkSignInTest(){
-        WebDriver driver = threadMap.get(Thread.currentThread().getId());
+        WebDriver driver = BaseTest.getDriver();
         AmazonMainPage amazonMainPage = new AmazonMainPage(driver);
         AbstractPage.buttonClick(driver, amazonMainPage.getSignInButton());
 
         SignInPage signInPage = new SignInPage(driver);
         AbstractPage.buttonClick(driver,signInPage.getEmailMobileField());
-        AbstractPage.sendKeys(driver, signInPage.getEmailMobileField(), "antontenix@gmail.com");
+        AbstractPage.sendKeys(driver, signInPage.getEmailMobileField(), PropertyReader.readProperty("email"));
         AbstractPage.buttonClick(driver, signInPage.getContinueButton());
 
         AbstractPage.buttonClick(driver, signInPage.getPasswordField());
-        AbstractPage.sendKeys(driver, signInPage.getPasswordField(), "experiment");
+        AbstractPage.sendKeys(driver, signInPage.getPasswordField(), PropertyReader.readProperty("password"));
         AbstractPage.buttonClick(driver, signInPage.getSignInButton());
 
         String user = amazonMainPage.getUserName();
@@ -49,10 +37,10 @@ public class AbstractTest {
 
     @Test
     public void checkAddItemInBasketTest(){
-        WebDriver driver = threadMap.get(Thread.currentThread().getId());
+        WebDriver driver = BaseTest.getDriver();
         AmazonMainPage amazonMainPage = new AmazonMainPage(driver);
         AbstractPage.buttonClick(driver, amazonMainPage.getSearchInput());
-        AbstractPage.sendKeys(driver, amazonMainPage.getSearchInput(), "One Percenter Revolution 21st Century");
+        AbstractPage.sendKeys(driver, amazonMainPage.getSearchInput(), PropertyReader.readProperty("input"));
         AbstractPage.buttonClick(driver, amazonMainPage.getSearchButton());
 
         SearchResultPage searchResultPage = new SearchResultPage(driver);
@@ -70,6 +58,7 @@ public class AbstractTest {
 
         SignInPage signInPage = new SignInPage(driver);
         softAssert.assertTrue(signInPage.getEmailMobileField().getText().toLowerCase(Locale.ROOT).contains("email or mobile phone number"));
+        softAssert.assertAll();
     }
 
     @DataProvider(name = "typeOfClothing")
@@ -79,7 +68,7 @@ public class AbstractTest {
 
     @Test(dataProvider = "typeOfClothing")
     public void checkSearchTypeOfClothingTest(String type){
-        WebDriver driver = threadMap.get(Thread.currentThread().getId());
+        WebDriver driver = BaseTest.getDriver();
         AmazonMainPage amazonMainPage = new AmazonMainPage(driver);
         AbstractPage.buttonClick(driver, amazonMainPage.getSearchInput());
         AbstractPage.sendKeys(driver, amazonMainPage.getSearchInput(), type);
@@ -92,15 +81,9 @@ public class AbstractTest {
         SoftAssert softAssert = new SoftAssert();
         searchItems.forEach(searchItem -> {
             softAssert.assertTrue(searchItem.getText().toLowerCase(Locale.ROOT).contains(type.toLowerCase(Locale.ROOT)));
-                    LOGGER.info("This product doesn't contain %s" + type);
+                    LOGGER.info("This product doesn't contain " + type);
             LOGGER.info(searchItem.getText());
         });
         softAssert.assertAll();
-    }
-
-    @AfterMethod
-    public void complete(){
-        WebDriver driver = threadMap.get(Thread.currentThread().getId());
-        driver.quit();
     }
 }

@@ -7,8 +7,6 @@ import org.openqa.selenium.support.PageFactory;
 
 public class SignInPage {
 
-    public WebDriver driver;
-
     @FindBy(css = "#ap_email")
     private WebElement emailMobileField;
 
@@ -23,7 +21,6 @@ public class SignInPage {
 
     public SignInPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
-        driver = driver;
         driver.get(driver.getCurrentUrl());
     }
 
@@ -42,6 +39,4 @@ public class SignInPage {
     public WebElement getSignInButton(){
         return signInButton;
     }
-
-
 }

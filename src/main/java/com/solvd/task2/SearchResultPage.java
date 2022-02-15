@@ -9,8 +9,6 @@ import java.util.List;
 
 public class SearchResultPage {
 
-    public WebDriver driver;
-
     @FindBy(css = "[class*='s-matching-dir sg-col-16-of-20']>.sg-col-inner")
     private List<WebElement> productBlocks;
 
@@ -19,7 +17,6 @@ public class SearchResultPage {
 
     public SearchResultPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
-        driver = driver;
         driver.get(driver.getCurrentUrl());
     }
 
