@@ -5,20 +5,20 @@ import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import java.util.List;
 import java.util.Locale;
 
-
-public class AmazonShopTest extends BaseTest{
+public class AmazonShopTest implements DriverPool {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AmazonShopTest.class);
 
     @Test
-    public void checkSignInTest(){
-        WebDriver driver = BaseTest.getDriver();
+    public void checkSignInTest() {
+        WebDriver driver = getDriver();
         AmazonMainPage amazonMainPage = new AmazonMainPage(driver);
         amazonMainPage.clickSignInButton();
 
@@ -36,8 +36,8 @@ public class AmazonShopTest extends BaseTest{
     }
 
     @Test
-    public void checkAddItemInBasketTest(){
-        WebDriver driver = BaseTest.getDriver();
+    public void checkAddItemInBasketTest() {
+        WebDriver driver = getDriver();
         AmazonMainPage amazonMainPage = new AmazonMainPage(driver);
         amazonMainPage.clickSearchInput();
         amazonMainPage.enterInput(PropertyReader.readProperty("input"));
@@ -67,8 +67,8 @@ public class AmazonShopTest extends BaseTest{
     }
 
     @Test(dataProvider = "typeOfClothing")
-    public void checkSearchTypeOfClothingTest(String type){
-        WebDriver driver = BaseTest.getDriver();
+    public void checkSearchTypeOfClothingTest(String type) {
+        WebDriver driver = getDriver();
         AmazonMainPage amazonMainPage = new AmazonMainPage(driver);
         amazonMainPage.clickSearchInput();
         amazonMainPage.enterInput(type);
@@ -81,9 +81,14 @@ public class AmazonShopTest extends BaseTest{
         SoftAssert softAssert = new SoftAssert();
         searchItems.forEach(searchItem -> {
             softAssert.assertTrue(searchItem.getText().toLowerCase(Locale.ROOT).contains(type.toLowerCase(Locale.ROOT)));
-                    LOGGER.info("This product doesn't contain " + type);
+            LOGGER.info("This product doesn't contain " + type);
             LOGGER.info(searchItem.getText());
         });
         softAssert.assertAll();
+    }
+
+    @AfterMethod
+    public void tearDown(){
+        getDriver().quit();
     }
 }

@@ -7,8 +7,6 @@ import org.openqa.selenium.support.PageFactory;
 
 public class AmazonMainPage extends AbstractPage{
 
-    private WebDriver driver;
-
     @FindBy(css = "#twotabsearchtextbox")
     private WebElement searchInput;
 
@@ -24,23 +22,22 @@ public class AmazonMainPage extends AbstractPage{
     public AmazonMainPage(WebDriver driver){
         PageFactory.initElements(driver, this);
         driver.get(PropertyReader.readProperty("url"));
-        this.driver = driver;
     }
 
     public void enterInput(String itemName){
-        sendKeys(driver, searchInput, itemName);
+        sendKeys(searchInput, itemName);
     }
 
     public void clickSearchButton(){
-        buttonClick(driver, searchButton);
+        buttonClick(searchButton);
     }
 
     public void clickSignInButton() {
-        buttonClick(driver, signInButton);
+        buttonClick(signInButton);
     }
 
     public void clickSearchInput() {
-        buttonClick(driver, searchInput);
+        buttonClick(searchInput);
     }
 
     public String getUserName(){

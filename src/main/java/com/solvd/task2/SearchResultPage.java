@@ -9,8 +9,6 @@ import java.util.List;
 
 public class SearchResultPage extends AbstractPage {
 
-    private WebDriver driver;
-
     @FindBy(css = "[class*='s-matching-dir sg-col-16-of-20']>.sg-col-inner")
     private List<WebElement> productBlocks;
 
@@ -19,7 +17,6 @@ public class SearchResultPage extends AbstractPage {
 
     public SearchResultPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
-        this.driver = driver;
     }
 
     public List<WebElement> getProductBlocks(){
@@ -27,6 +24,6 @@ public class SearchResultPage extends AbstractPage {
     }
 
     public void clickFirstSearchResult() {
-        buttonClick(driver, firstSearchResult);
+        buttonClick(firstSearchResult);
     }
 }
