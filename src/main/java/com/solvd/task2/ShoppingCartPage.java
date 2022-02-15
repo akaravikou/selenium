@@ -7,6 +7,8 @@ import org.openqa.selenium.support.PageFactory;
 
 public class ShoppingCartPage extends AbstractPage {
 
+    private WebDriver driver;
+
     @FindBy(css = ".a-truncate-cut")
     private WebElement title;
 
@@ -15,13 +17,14 @@ public class ShoppingCartPage extends AbstractPage {
 
     public ShoppingCartPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
+        this.driver = driver;
     }
 
     public WebElement getTitle(){
         return title;
     }
 
-    public void clickProceedToCheckoutButton(WebDriver driver){
+    public void clickProceedToCheckoutButton(){
         buttonClick(driver, proceedToCheckoutButton);
     }
 }

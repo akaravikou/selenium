@@ -7,23 +7,23 @@ import org.testng.annotations.BeforeMethod;
 
 public class BaseTest {
 
-    protected static ThreadLocal <ChromeDriver> driver = new ThreadLocal<>();
+    protected static ThreadLocal <ChromeDriver> driverPool = new ThreadLocal<>();
 
     @BeforeMethod
     public void setup(){
-        if (driver.get() == null) {
-        driver.set(new ChromeDriver());
+        if (driverPool.get() == null) {
+        driverPool.set(new ChromeDriver());
         }
     }
 
     public static WebDriver getDriver(){
-        return driver.get();
+        return driverPool.get();
     }
 
     @AfterMethod
     public void tearDown(){
-        if (driver.get() != null) {
-            driver.remove();
+        if (driverPool.get() != null) {
+            driverPool.remove();
         }
     }
 }

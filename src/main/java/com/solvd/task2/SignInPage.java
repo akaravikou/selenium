@@ -7,6 +7,8 @@ import org.openqa.selenium.support.PageFactory;
 
 public class SignInPage extends AbstractPage {
 
+    private WebDriver driver;
+
     @FindBy(css = "#ap_email")
     private WebElement emailMobileField;
 
@@ -21,29 +23,30 @@ public class SignInPage extends AbstractPage {
 
     public SignInPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
+        this.driver = driver;
     }
 
-    public void clickEmailMobileField(WebDriver driver){
+    public void clickEmailMobileField(){
         buttonClick(driver, emailMobileField);
     }
 
-    public void inputEmailMobileField(WebDriver driver, String input){
+    public void inputEmailMobileField(String input){
         sendKeys(driver, emailMobileField, input);
     }
 
-    public void clickContinueButton(WebDriver driver) {
+    public void clickContinueButton() {
         buttonClick(driver, continueButton);
     }
 
-    public void clickPasswordField(WebDriver driver) {
+    public void clickPasswordField() {
         buttonClick(driver, passwordField);
     }
 
-    public void inputPasswordField(WebDriver driver, String input) {
+    public void inputPasswordField(String input) {
         sendKeys(driver, passwordField, input);
     }
 
-    public void clickSignInButton(WebDriver driver){
+    public void clickSignInButton(){
         buttonClick(driver, signInButton);
     }
 

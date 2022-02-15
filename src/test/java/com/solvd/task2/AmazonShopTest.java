@@ -12,24 +12,24 @@ import java.util.List;
 import java.util.Locale;
 
 
-public class AbstractTest extends BaseTest{
+public class AmazonShopTest extends BaseTest{
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractTest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AmazonShopTest.class);
 
     @Test
     public void checkSignInTest(){
         WebDriver driver = BaseTest.getDriver();
         AmazonMainPage amazonMainPage = new AmazonMainPage(driver);
-        amazonMainPage.clickSignInButton(driver);
+        amazonMainPage.clickSignInButton();
 
         SignInPage signInPage = new SignInPage(driver);
-        signInPage.clickEmailMobileField(driver);
-        signInPage.inputEmailMobileField(driver, PropertyReader.readProperty("email"));
-        signInPage.clickContinueButton(driver);
+        signInPage.clickEmailMobileField();
+        signInPage.inputEmailMobileField(PropertyReader.readProperty("email"));
+        signInPage.clickContinueButton();
 
-        signInPage.clickPasswordField(driver);
-        signInPage.inputPasswordField(driver, PropertyReader.readProperty("password"));
-        signInPage.clickSignInButton(driver);
+        signInPage.clickPasswordField();
+        signInPage.inputPasswordField(PropertyReader.readProperty("password"));
+        signInPage.clickSignInButton();
 
         String user = amazonMainPage.getUserName();
         Assert.assertEquals(user, "Hello, Anton");
@@ -39,22 +39,21 @@ public class AbstractTest extends BaseTest{
     public void checkAddItemInBasketTest(){
         WebDriver driver = BaseTest.getDriver();
         AmazonMainPage amazonMainPage = new AmazonMainPage(driver);
-        amazonMainPage.clickSearchInput(driver);
-        amazonMainPage.enterInput(driver, PropertyReader.readProperty("input"));
-        amazonMainPage.clickSearchButton(driver);
+        amazonMainPage.clickSearchInput();
+        amazonMainPage.enterInput(PropertyReader.readProperty("input"));
+        amazonMainPage.clickSearchButton();
 
         SearchResultPage searchResultPage = new SearchResultPage(driver);
-        searchResultPage.clickFirstSearchResult(driver);
+        searchResultPage.clickFirstSearchResult();
 
         ProductPage productPage = new ProductPage(driver);
-        productPage.clickHardcoverButton(driver);
-        productPage.clickAddToCartButton(driver);
-        productPage.clickBasketButton(driver);
-
+        productPage.clickHardcoverButton();
+        productPage.clickAddToCartButton();
+        productPage.clickBasketButton();
 
         ShoppingCartPage shoppingCartPage = new ShoppingCartPage(driver);
         Assert.assertTrue(shoppingCartPage.getTitle().getText().toLowerCase(Locale.ROOT).contains("one percenter revolution"));
-        shoppingCartPage.clickProceedToCheckoutButton(driver);
+        shoppingCartPage.clickProceedToCheckoutButton();
 
         SignInPage signInPage = new SignInPage(driver);
         SoftAssert softAssert = new SoftAssert();
@@ -71,9 +70,9 @@ public class AbstractTest extends BaseTest{
     public void checkSearchTypeOfClothingTest(String type){
         WebDriver driver = BaseTest.getDriver();
         AmazonMainPage amazonMainPage = new AmazonMainPage(driver);
-        amazonMainPage.clickSearchInput(driver);
-        amazonMainPage.enterInput(driver, type);
-        amazonMainPage.clickSearchButton(driver);
+        amazonMainPage.clickSearchInput();
+        amazonMainPage.enterInput(type);
+        amazonMainPage.clickSearchButton();
 
         SearchResultPage searchResultPage = new SearchResultPage(driver);
         List<WebElement> searchItems = searchResultPage.getProductBlocks();
