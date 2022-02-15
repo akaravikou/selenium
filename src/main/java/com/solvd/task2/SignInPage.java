@@ -24,19 +24,31 @@ public class SignInPage {
         driver.get(driver.getCurrentUrl());
     }
 
+    public void clickEmailMobileField(WebDriver driver){
+        AbstractPage.buttonClick(driver, emailMobileField);
+    }
+
+    public void inputEmailMobileField(WebDriver driver, String input){
+        AbstractPage.sendKeys(driver, emailMobileField, input);
+    }
+
+    public void clickContinueButton(WebDriver driver) {
+        AbstractPage.buttonClick(driver, continueButton);
+    }
+
+    public void clickPasswordField(WebDriver driver) {
+        AbstractPage.buttonClick(driver, passwordField);
+    }
+
+    public void inputPasswordField(WebDriver driver, String input) {
+        AbstractPage.sendKeys(driver, passwordField, input);
+    }
+
+    public void clickSignInButton(WebDriver driver){
+        AbstractPage.buttonClick(driver, signInButton);
+    }
+
     public WebElement getEmailMobileField(){
         return emailMobileField;
-    }
-
-    public WebElement getContinueButton() {
-        return continueButton;
-    }
-
-    public WebElement getPasswordField() {
-        return passwordField;
-    }
-
-    public WebElement getSignInButton(){
-        return signInButton;
     }
 }

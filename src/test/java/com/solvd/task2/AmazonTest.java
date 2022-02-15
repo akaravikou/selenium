@@ -29,8 +29,8 @@ public class AmazonTest {
     @Test
     public void CheckSearchInputTest(){
         AmazonMainPage amazonMainPage = new AmazonMainPage(driver);
-        amazonMainPage.enterInput("Alice in wonderland book");
-        amazonMainPage.clickSearchButton();
+        amazonMainPage.enterInput(driver,"Alice in wonderland book");
+        amazonMainPage.clickSearchButton(driver);
 
         SearchResultPage searchResultPage = new SearchResultPage(driver);
         List<WebElement> searchItems = searchResultPage.getProductBlocks();

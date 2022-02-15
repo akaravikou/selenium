@@ -22,7 +22,7 @@ public class ShoppingCartPage {
         return title;
     }
 
-    public WebElement getProceedToCheckoutButton(){
-        return proceedToCheckoutButton;
+    public void clickProceedToCheckoutButton(WebDriver driver){
+        AbstractPage.buttonClick(driver, proceedToCheckoutButton);
     }
 }

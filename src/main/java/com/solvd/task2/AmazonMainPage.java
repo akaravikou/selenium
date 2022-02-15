@@ -24,21 +24,21 @@ public class AmazonMainPage {
         driver.get(PropertyReader.readProperty("url"));
     }
 
-    public void enterInput(String itemName){
-        searchInput.sendKeys(itemName);
+    public void enterInput(WebDriver driver, String itemName){
+        AbstractPage.sendKeys(driver, searchInput, itemName);
     }
 
-    public void clickSearchButton(){
-        searchButton.click();
+    public void clickSearchButton(WebDriver driver){
+        AbstractPage.buttonClick(driver, searchButton);
     }
 
-    public WebElement getSignInButton() {
-        return signInButton;
+    public void clickSignInButton(WebDriver driver) {
+        AbstractPage.buttonClick(driver, signInButton);
     }
 
-    public WebElement getSearchInput() { return searchInput; }
-
-    public WebElement getSearchButton() { return searchButton; }
+    public void clickSearchInput(WebDriver driver) {
+        AbstractPage.buttonClick(driver, searchInput);
+    }
 
     public String getUserName(){
         return accountButton.getText();

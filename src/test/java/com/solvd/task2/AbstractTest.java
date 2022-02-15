@@ -20,16 +20,16 @@ public class AbstractTest extends BaseTest{
     public void checkSignInTest(){
         WebDriver driver = BaseTest.getDriver();
         AmazonMainPage amazonMainPage = new AmazonMainPage(driver);
-        AbstractPage.buttonClick(driver, amazonMainPage.getSignInButton());
+        amazonMainPage.clickSignInButton(driver);
 
         SignInPage signInPage = new SignInPage(driver);
-        AbstractPage.buttonClick(driver,signInPage.getEmailMobileField());
-        AbstractPage.sendKeys(driver, signInPage.getEmailMobileField(), PropertyReader.readProperty("email"));
-        AbstractPage.buttonClick(driver, signInPage.getContinueButton());
+        signInPage.clickEmailMobileField(driver);
+        signInPage.inputEmailMobileField(driver, PropertyReader.readProperty("email"));
+        signInPage.clickContinueButton(driver);
 
-        AbstractPage.buttonClick(driver, signInPage.getPasswordField());
-        AbstractPage.sendKeys(driver, signInPage.getPasswordField(), PropertyReader.readProperty("password"));
-        AbstractPage.buttonClick(driver, signInPage.getSignInButton());
+        signInPage.clickPasswordField(driver);
+        signInPage.inputPasswordField(driver, PropertyReader.readProperty("password"));
+        signInPage.clickSignInButton(driver);
 
         String user = amazonMainPage.getUserName();
         Assert.assertEquals(user, "Hello, Anton");
@@ -39,24 +39,25 @@ public class AbstractTest extends BaseTest{
     public void checkAddItemInBasketTest(){
         WebDriver driver = BaseTest.getDriver();
         AmazonMainPage amazonMainPage = new AmazonMainPage(driver);
-        AbstractPage.buttonClick(driver, amazonMainPage.getSearchInput());
-        AbstractPage.sendKeys(driver, amazonMainPage.getSearchInput(), PropertyReader.readProperty("input"));
-        AbstractPage.buttonClick(driver, amazonMainPage.getSearchButton());
+        amazonMainPage.clickSearchInput(driver);
+        amazonMainPage.enterInput(driver, PropertyReader.readProperty("input"));
+        amazonMainPage.clickSearchButton(driver);
 
         SearchResultPage searchResultPage = new SearchResultPage(driver);
-        AbstractPage.buttonClick(driver, searchResultPage.getFirstSearchResult());
+        searchResultPage.clickFirstSearchResult(driver);
 
         ProductPage productPage = new ProductPage(driver);
-        AbstractPage.buttonClick(driver, productPage.getHardcoverButton());
-        AbstractPage.buttonClick(driver, productPage.getAddToCartButton());
-        AbstractPage.buttonClick(driver, productPage.getBasketButton());
+        productPage.clickHardcoverButton(driver);
+        productPage.clickAddToCartButton(driver);
+        productPage.clickBasketButton(driver);
 
-        SoftAssert softAssert = new SoftAssert();
+
         ShoppingCartPage shoppingCartPage = new ShoppingCartPage(driver);
-        softAssert.assertTrue(shoppingCartPage.getTitle().getText().toLowerCase(Locale.ROOT).contains("one percenter revolution"));
-        AbstractPage.buttonClick(driver, shoppingCartPage.getProceedToCheckoutButton());
+        Assert.assertTrue(shoppingCartPage.getTitle().getText().toLowerCase(Locale.ROOT).contains("one percenter revolution"));
+        shoppingCartPage.clickProceedToCheckoutButton(driver);
 
         SignInPage signInPage = new SignInPage(driver);
+        SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(signInPage.getEmailMobileField().getText().toLowerCase(Locale.ROOT).contains("email or mobile phone number"));
         softAssert.assertAll();
     }
@@ -70,9 +71,9 @@ public class AbstractTest extends BaseTest{
     public void checkSearchTypeOfClothingTest(String type){
         WebDriver driver = BaseTest.getDriver();
         AmazonMainPage amazonMainPage = new AmazonMainPage(driver);
-        AbstractPage.buttonClick(driver, amazonMainPage.getSearchInput());
-        AbstractPage.sendKeys(driver, amazonMainPage.getSearchInput(), type);
-        AbstractPage.buttonClick(driver, amazonMainPage.getSearchButton());
+        amazonMainPage.clickSearchInput(driver);
+        amazonMainPage.enterInput(driver, type);
+        amazonMainPage.clickSearchButton(driver);
 
         SearchResultPage searchResultPage = new SearchResultPage(driver);
         List<WebElement> searchItems = searchResultPage.getProductBlocks();

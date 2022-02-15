@@ -24,15 +24,15 @@ public class ProductPage {
         driver.get(driver.getCurrentUrl());
     }
 
-    public WebElement getHardcoverButton(){
-        return hardcoverButton;
+    public void clickHardcoverButton(WebDriver driver){
+        AbstractPage.buttonClick(driver, hardcoverButton);
     }
 
-    public WebElement getAddToCartButton(){
-        return addToCartButton;
+    public void clickAddToCartButton(WebDriver driver){
+        AbstractPage.buttonClick(driver, addToCartButton);
     }
 
-    public WebElement getBasketButton(){
-        return basketButton;
+    public void clickBasketButton(WebDriver driver){
+        AbstractPage.buttonClick(driver, basketButton);
     }
 }

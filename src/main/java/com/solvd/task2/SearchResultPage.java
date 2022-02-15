@@ -24,7 +24,7 @@ public class SearchResultPage {
         return productBlocks;
     }
 
-    public WebElement getFirstSearchResult() {
-        return firstSearchResult;
+    public void clickFirstSearchResult(WebDriver driver) {
+        AbstractPage.buttonClick(driver, firstSearchResult);
     }
 }
