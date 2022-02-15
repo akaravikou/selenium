@@ -7,7 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-public class SearchResultPage {
+public class SearchResultPage extends AbstractPage {
 
     @FindBy(css = "[class*='s-matching-dir sg-col-16-of-20']>.sg-col-inner")
     private List<WebElement> productBlocks;
@@ -17,7 +17,6 @@ public class SearchResultPage {
 
     public SearchResultPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
-        driver.get(driver.getCurrentUrl());
     }
 
     public List<WebElement> getProductBlocks(){
@@ -25,6 +24,6 @@ public class SearchResultPage {
     }
 
     public void clickFirstSearchResult(WebDriver driver) {
-        AbstractPage.buttonClick(driver, firstSearchResult);
+        buttonClick(driver, firstSearchResult);
     }
 }

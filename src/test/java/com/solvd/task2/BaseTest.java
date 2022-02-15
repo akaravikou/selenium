@@ -11,8 +11,9 @@ public class BaseTest {
 
     @BeforeMethod
     public void setup(){
-        System.setProperty(PropertyReader.readProperty("driver"), PropertyReader.readProperty("chromedriver"));
+        if (driver.get() == null) {
         driver.set(new ChromeDriver());
+        }
     }
 
     public static WebDriver getDriver(){
@@ -21,7 +22,8 @@ public class BaseTest {
 
     @AfterMethod
     public void tearDown(){
-        getDriver().quit();
+        if (driver.get() != null) {
+            driver.remove();
+        }
     }
-
 }

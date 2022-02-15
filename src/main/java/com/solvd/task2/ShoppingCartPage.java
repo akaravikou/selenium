@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class ShoppingCartPage {
+public class ShoppingCartPage extends AbstractPage {
 
     @FindBy(css = ".a-truncate-cut")
     private WebElement title;
@@ -15,7 +15,6 @@ public class ShoppingCartPage {
 
     public ShoppingCartPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
-        driver.get(driver.getCurrentUrl());
     }
 
     public WebElement getTitle(){
@@ -23,6 +22,6 @@ public class ShoppingCartPage {
     }
 
     public void clickProceedToCheckoutButton(WebDriver driver){
-        AbstractPage.buttonClick(driver, proceedToCheckoutButton);
+        buttonClick(driver, proceedToCheckoutButton);
     }
 }

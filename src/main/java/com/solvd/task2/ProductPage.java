@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class ProductPage {
+public class ProductPage extends AbstractPage {
 
     @FindBy(css = "#productTitle")
     private WebElement title;
@@ -21,18 +21,17 @@ public class ProductPage {
 
     public ProductPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
-        driver.get(driver.getCurrentUrl());
     }
 
     public void clickHardcoverButton(WebDriver driver){
-        AbstractPage.buttonClick(driver, hardcoverButton);
+        buttonClick(driver, hardcoverButton);
     }
 
     public void clickAddToCartButton(WebDriver driver){
-        AbstractPage.buttonClick(driver, addToCartButton);
+        buttonClick(driver, addToCartButton);
     }
 
     public void clickBasketButton(WebDriver driver){
-        AbstractPage.buttonClick(driver, basketButton);
+        buttonClick(driver, basketButton);
     }
 }
