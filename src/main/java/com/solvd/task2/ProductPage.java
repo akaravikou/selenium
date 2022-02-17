@@ -19,7 +19,8 @@ public class ProductPage extends AbstractPage {
     @FindBy(css = "#nav-cart-count")
     private WebElement basketButton;
 
-    public ProductPage(WebDriver driver) {
+    public ProductPage(WebDriver driver, String pageUrl) {
+        super(driver, pageUrl);
         PageFactory.initElements(driver, this);
     }
 
@@ -27,13 +28,12 @@ public class ProductPage extends AbstractPage {
         buttonClick(hardcoverButton);
     }
 
-    public ProductPage clickAddToCartButton(){
+    public void clickAddToCartButton(){
         buttonClick(addToCartButton);
-        return new ProductPage(getDriver());
     }
 
     public ShoppingCartPage clickBasketButton(){
         buttonClick(basketButton);
-        return new ShoppingCartPage(getDriver());
+        return new ShoppingCartPage(getDriver(), driver.getCurrentUrl());
     }
 }

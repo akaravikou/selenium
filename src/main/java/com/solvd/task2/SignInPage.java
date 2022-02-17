@@ -19,38 +19,39 @@ public class SignInPage extends AbstractPage {
     @FindBy(css = "#signInSubmit")
     private WebElement signInButton;
 
-    public SignInPage(WebDriver driver) {
+    public SignInPage(WebDriver driver, String pageUrl) {
+        super(driver, pageUrl);
         PageFactory.initElements(driver, this);
     }
 
     public SignInPage clickEmailMobileField(){
         buttonClick(emailMobileField);
-        return new SignInPage(getDriver());
+        return new SignInPage(getDriver(), driver.getCurrentUrl());
     }
 
     public SignInPage inputEmailMobileField(String input){
         sendKeys(emailMobileField, input);
-        return new SignInPage(getDriver());
+        return new SignInPage(getDriver(), driver.getCurrentUrl());
     }
 
     public SignInPage clickContinueButton() {
         buttonClick(continueButton);
-        return new SignInPage(getDriver());
+        return new SignInPage(getDriver(), driver.getCurrentUrl());
     }
 
     public SignInPage clickPasswordField() {
         buttonClick(passwordField);
-        return new SignInPage(getDriver());
+        return new SignInPage(getDriver(), driver.getCurrentUrl());
     }
 
     public SignInPage inputPasswordField(String input) {
         sendKeys(passwordField, input);
-        return new SignInPage(getDriver());
+        return new SignInPage(getDriver(), driver.getCurrentUrl());
     }
 
     public SignInPage clickSignInButton(){
         buttonClick(signInButton);
-        return new SignInPage(getDriver());
+        return new SignInPage(getDriver(), driver.getCurrentUrl());
     }
 
     public String getEmailMobileFieldText(){

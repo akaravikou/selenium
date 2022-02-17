@@ -16,7 +16,8 @@ public class SearchResultPage extends AbstractPage {
     @FindBy(css = "h2>[href *= '/One-Percenter-Revolution-Dave-Nichols-ebook/']")
     private WebElement firstSearchResult;
 
-    public SearchResultPage(WebDriver driver) {
+    public SearchResultPage(WebDriver driver, String pageUrl) {
+        super(driver, pageUrl);
         PageFactory.initElements(driver, this);
     }
 
@@ -32,6 +33,6 @@ public class SearchResultPage extends AbstractPage {
 
     public ProductPage clickFirstSearchResult() {
         buttonClick(firstSearchResult);
-        return new ProductPage(getDriver());
+        return new ProductPage(getDriver(), driver.getCurrentUrl());
     }
 }

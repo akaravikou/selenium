@@ -16,20 +16,21 @@ public class AmazonShopTest extends AbstractTest {
     public void checkSignInTest() {
 
         AmazonMainPage amazonMainPage = new AmazonMainPage(getDriver());
+        amazonMainPage.openPage();
         SignInPage signInPage = amazonMainPage.clickSignInButton();
 
         signInPage.clickEmailMobileField().inputEmailMobileField(PropertyReader.readProperty("email"));
         signInPage.clickContinueButton().clickPasswordField().inputPasswordField(PropertyReader.readProperty("password"));
         signInPage.clickSignInButton();
 
-        String user = amazonMainPage.getUserName();
-        Assert.assertEquals(user, "Hello, Anton");
+        String userName = amazonMainPage.getUserName();
+        Assert.assertFalse(userName.contains("Sign in"), "Name of account should contains name");
     }
 
     @Test
     public void checkAddItemInBasketTest() {
         AmazonMainPage amazonMainPage = new AmazonMainPage(getDriver());
-
+        amazonMainPage.openPage();
         amazonMainPage.clickSearchInput().enterInput(PropertyReader.readProperty("input"));
 
         SearchResultPage searchResultPage = amazonMainPage.clickSearchButton();
@@ -56,6 +57,7 @@ public class AmazonShopTest extends AbstractTest {
     @Test(dataProvider = "typeOfClothing")
     public void checkSearchTypeOfClothingTest(String type) {
         AmazonMainPage amazonMainPage = new AmazonMainPage(getDriver());
+        amazonMainPage.openPage();
         amazonMainPage.clickSearchInput();
         amazonMainPage.enterInput(type);
 

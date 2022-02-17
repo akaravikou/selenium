@@ -20,8 +20,8 @@ public class AmazonMainPage extends AbstractPage{
     private WebElement accountButton;
 
     public AmazonMainPage(WebDriver driver){
+        super(driver, PropertyReader.readProperty("url"));
         PageFactory.initElements(driver, this);
-        driver.get(PropertyReader.readProperty("url"));
     }
 
     public void enterInput(String itemName){
@@ -30,12 +30,12 @@ public class AmazonMainPage extends AbstractPage{
 
     public SearchResultPage clickSearchButton(){
         buttonClick(searchButton);
-        return new SearchResultPage(getDriver());
+        return new SearchResultPage(getDriver(), driver.getCurrentUrl());
     }
 
     public SignInPage clickSignInButton() {
         buttonClick(signInButton);
-        return new SignInPage(getDriver());
+        return new SignInPage(getDriver(), driver.getCurrentUrl());
     }
 
     public AmazonMainPage clickSearchInput() {

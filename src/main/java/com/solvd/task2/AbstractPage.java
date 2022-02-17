@@ -2,7 +2,9 @@ package com.solvd.task2;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -11,7 +13,25 @@ import java.time.Duration;
 public class AbstractPage implements DriverPool{
 
     private static final Logger LOGGER = LogManager.getLogger(AbstractPage.class);
-    private static final Duration TIMEOUT = Duration.ofSeconds(1000);
+    private static final Duration TIMEOUT = Duration.ofSeconds(100);
+
+    private final String pageUrl;
+    WebDriver driver;
+
+    public AbstractPage(WebDriver driver, String pageUrl){
+        this.driver = driver;
+        this.pageUrl = pageUrl;
+
+
+    }
+
+    public void openPage(){
+        driver.get(pageUrl);
+    }
+
+    public String getPageUrl(){
+        return pageUrl;
+    }
 
     public void buttonClick(WebElement element) {
         String elementName = element.getAccessibleName();
