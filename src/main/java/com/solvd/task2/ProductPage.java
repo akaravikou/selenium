@@ -27,11 +27,13 @@ public class ProductPage extends AbstractPage {
         buttonClick(hardcoverButton);
     }
 
-    public void clickAddToCartButton(){
+    public ProductPage clickAddToCartButton(){
         buttonClick(addToCartButton);
+        return new ProductPage(getDriver());
     }
 
-    public void clickBasketButton(){
+    public ShoppingCartPage clickBasketButton(){
         buttonClick(basketButton);
+        return new ShoppingCartPage(getDriver());
     }
 }

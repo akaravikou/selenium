@@ -6,6 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SearchResultPage extends AbstractPage {
 
@@ -19,11 +20,18 @@ public class SearchResultPage extends AbstractPage {
         PageFactory.initElements(driver, this);
     }
 
-    public List<WebElement> getProductBlocks(){
-        return productBlocks;
+    public Long getProductNumber(){
+        return productBlocks.stream().count();
     }
 
-    public void clickFirstSearchResult() {
+    public List<String> getProductTitle(){
+        return productBlocks.stream()
+                .map(productBlock -> productBlock.getText())
+                .collect(Collectors.toList());
+    }
+
+    public ProductPage clickFirstSearchResult() {
         buttonClick(firstSearchResult);
+        return new ProductPage(getDriver());
     }
 }

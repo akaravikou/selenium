@@ -17,11 +17,14 @@ public class ShoppingCartPage extends AbstractPage {
         PageFactory.initElements(driver, this);
     }
 
-    public WebElement getTitle(){
-        return title;
+    public String getTitleText(){
+        return title.getText();
     }
 
-    public void clickProceedToCheckoutButton(){
+    public SignInPage clickProceedToCheckoutButton(){
         buttonClick(proceedToCheckoutButton);
+        return new SignInPage(getDriver());
     }
+
+
 }

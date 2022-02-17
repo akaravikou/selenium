@@ -28,16 +28,19 @@ public class AmazonMainPage extends AbstractPage{
         sendKeys(searchInput, itemName);
     }
 
-    public void clickSearchButton(){
+    public SearchResultPage clickSearchButton(){
         buttonClick(searchButton);
+        return new SearchResultPage(getDriver());
     }
 
-    public void clickSignInButton() {
+    public SignInPage clickSignInButton() {
         buttonClick(signInButton);
+        return new SignInPage(getDriver());
     }
 
-    public void clickSearchInput() {
+    public AmazonMainPage clickSearchInput() {
         buttonClick(searchInput);
+        return new AmazonMainPage(getDriver());
     }
 
     public String getUserName(){

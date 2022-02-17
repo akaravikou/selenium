@@ -5,14 +5,20 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public interface DriverPool {
 
-    ThreadLocal<ChromeDriver> pool = new ThreadLocal<>();
+    static final ThreadLocal <WebDriver> drivers = new ThreadLocal<>();
 
-    default WebDriver getDriver() {
+//    static WebDriver getDriver() {
+//        if (pool.get() == null) {
+//            pool.set(new ChromeDriver());
+//        }
+//        return pool.get();
+//    }
 
-
-        if (pool.get() == null) {
-            pool.set(new ChromeDriver());
+    default WebDriver getDriver(){
+        WebDriver driver = drivers.get();
+        if(driver == null){
+            throw new IllegalStateException("Driver should have not been null.");
         }
-        return pool.get();
+        return driver;
     }
-}
+    }

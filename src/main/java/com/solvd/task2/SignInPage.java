@@ -23,31 +23,37 @@ public class SignInPage extends AbstractPage {
         PageFactory.initElements(driver, this);
     }
 
-    public void clickEmailMobileField(){
+    public SignInPage clickEmailMobileField(){
         buttonClick(emailMobileField);
+        return new SignInPage(getDriver());
     }
 
-    public void inputEmailMobileField(String input){
+    public SignInPage inputEmailMobileField(String input){
         sendKeys(emailMobileField, input);
+        return new SignInPage(getDriver());
     }
 
-    public void clickContinueButton() {
+    public SignInPage clickContinueButton() {
         buttonClick(continueButton);
+        return new SignInPage(getDriver());
     }
 
-    public void clickPasswordField() {
+    public SignInPage clickPasswordField() {
         buttonClick(passwordField);
+        return new SignInPage(getDriver());
     }
 
-    public void inputPasswordField(String input) {
+    public SignInPage inputPasswordField(String input) {
         sendKeys(passwordField, input);
+        return new SignInPage(getDriver());
     }
 
-    public void clickSignInButton(){
+    public SignInPage clickSignInButton(){
         buttonClick(signInButton);
+        return new SignInPage(getDriver());
     }
 
-    public WebElement getEmailMobileField(){
-        return emailMobileField;
+    public String getEmailMobileFieldText(){
+        return emailMobileField.getText();
     }
 }
