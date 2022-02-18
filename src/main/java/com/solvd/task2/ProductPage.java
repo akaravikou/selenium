@@ -3,7 +3,6 @@ package com.solvd.task2;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 public class ProductPage extends AbstractPage {
 
@@ -19,9 +18,14 @@ public class ProductPage extends AbstractPage {
     @FindBy(css = "#nav-cart-count")
     private WebElement basketButton;
 
-    public ProductPage(WebDriver driver, String pageUrl) {
-        super(driver, pageUrl);
-        PageFactory.initElements(driver, this);
+//    public ProductPage(WebDriver driver, String pageUrl) {
+//        super(driver, pageUrl);
+//        PageFactory.initElements(driver, this);
+//    }
+
+    public ProductPage(WebDriver driver){
+        super(driver);
+        setPageURL(driver.getCurrentUrl());
     }
 
     public void clickHardcoverButton(){
@@ -34,6 +38,6 @@ public class ProductPage extends AbstractPage {
 
     public ShoppingCartPage clickBasketButton(){
         buttonClick(basketButton);
-        return new ShoppingCartPage(getDriver(), driver.getCurrentUrl());
+        return new ShoppingCartPage(getDriver());
     }
 }

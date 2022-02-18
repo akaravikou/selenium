@@ -15,22 +15,29 @@ public class AbstractPage implements DriverPool{
     private static final Logger LOGGER = LogManager.getLogger(AbstractPage.class);
     private static final Duration TIMEOUT = Duration.ofSeconds(100);
 
-    private final String pageUrl;
-    WebDriver driver;
+    private String pageURL;
+    private final WebDriver driver;
 
-    public AbstractPage(WebDriver driver, String pageUrl){
+//    public AbstractPage(WebDriver driver, String pageUrl){
+//        this.driver = driver;
+//        this.pageUrl = pageUrl;
+//    }
+
+    public AbstractPage(WebDriver driver){
         this.driver = driver;
-        this.pageUrl = pageUrl;
+        PageFactory.initElements(driver, this);
+    }
 
-
+    public void setPageURL(String pageURL) {
+        this.pageURL = pageURL;
     }
 
     public void openPage(){
-        driver.get(pageUrl);
+        driver.get(pageURL);
     }
 
-    public String getPageUrl(){
-        return pageUrl;
+    public boolean isPageOpened(AbstractPage page){
+        return driver.getCurrentUrl() != null;
     }
 
     public void buttonClick(WebElement element) {

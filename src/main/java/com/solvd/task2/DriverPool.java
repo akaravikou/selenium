@@ -7,13 +7,6 @@ public interface DriverPool {
 
     static final ThreadLocal <WebDriver> drivers = new ThreadLocal<>();
 
-//    static WebDriver getDriver() {
-//        if (pool.get() == null) {
-//            pool.set(new ChromeDriver());
-//        }
-//        return pool.get();
-//    }
-
     default WebDriver getDriver(){
         WebDriver driver = drivers.get();
         if(driver == null){

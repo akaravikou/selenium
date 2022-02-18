@@ -24,7 +24,7 @@ public class AmazonShopTest extends AbstractTest {
         signInPage.clickSignInButton();
 
         String userName = amazonMainPage.getUserName();
-        Assert.assertFalse(userName.contains("Sign in"), "Name of account should contains name");
+        Assert.assertEquals(userName, "Anton", "Name of account should contains user name");
     }
 
     @Test
@@ -42,11 +42,13 @@ public class AmazonShopTest extends AbstractTest {
 
         ShoppingCartPage shoppingCartPage = productPage.clickBasketButton();
 
-        Assert.assertTrue(shoppingCartPage.getTitleText().toLowerCase(Locale.ROOT).contains("one percenter revolution"));
+        Assert.assertTrue(shoppingCartPage.getTitleText().toLowerCase(Locale.ROOT).contains("one percenter revolution"),
+                "Product in Shopping Cart with incorrect title.");
 
         SignInPage signInPage = shoppingCartPage.clickProceedToCheckoutButton();
 
-        Assert.assertTrue(signInPage.getEmailMobileFieldText().toLowerCase(Locale.ROOT).contains("email or mobile phone number"));
+        Assert.assertTrue(signInPage.getEmailMobileFieldText().toLowerCase(Locale.ROOT).contains("email or mobile phone number"),
+                "Redirect in wrong page.");
     }
 
     @DataProvider(name = "typeOfClothing")

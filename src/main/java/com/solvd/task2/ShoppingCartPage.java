@@ -13,9 +13,14 @@ public class ShoppingCartPage extends AbstractPage {
     @FindBy(css = "[data-feature-id = 'proceed-to-checkout-action']")
     private WebElement proceedToCheckoutButton;
 
-    public ShoppingCartPage(WebDriver driver, String pageUrl) {
-        super(driver, pageUrl);
-        PageFactory.initElements(driver, this);
+//    public ShoppingCartPage(WebDriver driver, String pageUrl) {
+//        super(driver, pageUrl);
+//        PageFactory.initElements(driver, this);
+//    }
+
+    public ShoppingCartPage(WebDriver driver){
+        super(driver);
+        setPageURL(driver.getCurrentUrl());
     }
 
     public String getTitleText(){
@@ -24,6 +29,6 @@ public class ShoppingCartPage extends AbstractPage {
 
     public SignInPage clickProceedToCheckoutButton(){
         buttonClick(proceedToCheckoutButton);
-        return new SignInPage(getDriver(), driver.getCurrentUrl());
+        return new SignInPage(getDriver());
     }
 }
