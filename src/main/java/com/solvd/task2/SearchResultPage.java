@@ -10,10 +10,13 @@ import java.util.stream.Collectors;
 
 public class SearchResultPage extends AbstractPage {
 
+    @FindBy(css = "[data-component-type = 's-result-info-bar']")
+    private WebElement infoBar;
+
     @FindBy(css = "[class*='s-matching-dir sg-col-16-of-20']>.sg-col-inner")
     private List<WebElement> productBlocks;
 
-    @FindBy(css = "h2>[href *= '/One-Percenter-Revolution-Dave-Nichols-ebook/']")
+    @FindBy(css = "[data-index='2']")
     private WebElement firstSearchResult;
 
 //    public SearchResultPage(WebDriver driver, String pageUrl) {
@@ -27,7 +30,10 @@ public class SearchResultPage extends AbstractPage {
     }
 
     public Long getProductNumber(){
-        return productBlocks.stream().count();
+        if(isPageOpened()) {
+            return (long) productBlocks.size();
+        }
+        return null;
     }
 
     public List<String> getProductTitle(){
@@ -36,8 +42,12 @@ public class SearchResultPage extends AbstractPage {
                 .collect(Collectors.toList());
     }
 
-    public ProductPage clickFirstSearchResult() {
+    public ProductPage clickOnProductByIndex(){
         buttonClick(firstSearchResult);
         return new ProductPage(getDriver());
+    }
+
+    public boolean isPageOpened(){
+        return infoBar.isDisplayed();
     }
 }

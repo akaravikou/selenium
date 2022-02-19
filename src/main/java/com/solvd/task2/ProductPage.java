@@ -29,7 +29,9 @@ public class ProductPage extends AbstractPage {
     }
 
     public void clickHardcoverButton(){
-        buttonClick(hardcoverButton);
+        if(isPageOpened()) {
+            buttonClick(hardcoverButton);
+        }
     }
 
     public void clickAddToCartButton(){
@@ -39,5 +41,9 @@ public class ProductPage extends AbstractPage {
     public ShoppingCartPage clickBasketButton(){
         buttonClick(basketButton);
         return new ShoppingCartPage(getDriver());
+    }
+
+    public boolean isPageOpened(){
+        return title.isDisplayed();
     }
 }

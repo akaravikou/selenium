@@ -7,6 +7,9 @@ import org.openqa.selenium.support.PageFactory;
 
 public class ShoppingCartPage extends AbstractPage {
 
+    @FindBy(css = "#sc-active-cart")
+    private WebElement activeCart;
+
     @FindBy(css = ".a-truncate-cut")
     private WebElement title;
 
@@ -24,11 +27,18 @@ public class ShoppingCartPage extends AbstractPage {
     }
 
     public String getTitleText(){
-        return title.getText();
+        if(isPageOpened()){
+            return title.getText();
+        }
+        return null;
     }
 
     public SignInPage clickProceedToCheckoutButton(){
         buttonClick(proceedToCheckoutButton);
         return new SignInPage(getDriver());
+    }
+
+    public boolean isPageOpened(){
+        return activeCart.isDisplayed();
     }
 }

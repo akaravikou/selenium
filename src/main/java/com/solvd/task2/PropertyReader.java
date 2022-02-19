@@ -14,6 +14,7 @@ public class PropertyReader {
     public static final String EMAIL;
     public static final String PASSWORD;
     public static final String INPUT;
+    public static final String USERNAME;
 
     static{
         URL = readProperty("url");
@@ -22,6 +23,7 @@ public class PropertyReader {
         EMAIL = readProperty("email");
         PASSWORD = readProperty("password");
         INPUT = readProperty("input");
+        USERNAME = readProperty("userName");
     }
 
     public static PropertyReader getInstance(){

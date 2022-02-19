@@ -6,8 +6,13 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.lang.module.Configuration;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
-public class AmazonMainPage extends AbstractPage{
+public class AmazonMainPage extends AbstractPage {
+
+    @FindBy(css = "#nav-logo-sprites")
+    private WebElement logo;
 
     @FindBy(css = "#twotabsearchtextbox")
     private WebElement searchInput;
@@ -26,23 +31,29 @@ public class AmazonMainPage extends AbstractPage{
 //        PageFactory.initElements(driver, this);
 //    }
 
-    public AmazonMainPage(WebDriver driver){
+    public AmazonMainPage(WebDriver driver) {
         super(driver);
         setPageURL(PropertyReader.readProperty("url"));
     }
 
-    public void enterInput(String itemName){
+    public void enterInput(String itemName) {
         sendKeys(searchInput, itemName);
     }
 
-    public SearchResultPage clickSearchButton(){
-        buttonClick(searchButton);
-        return new SearchResultPage(getDriver());
+    public SearchResultPage clickSearchButton() {
+        if(isPageOpened()) {
+            buttonClick(searchButton);
+            return new SearchResultPage(getDriver());
+        }
+        else return null;
     }
 
     public SignInPage clickSignInButton() {
-        buttonClick(signInButton);
-        return new SignInPage(getDriver());
+        if (isPageOpened()) {
+            buttonClick(signInButton);
+            return new SignInPage(getDriver());
+        }
+        else return null;
     }
 
     public AmazonMainPage clickSearchInput() {
@@ -50,7 +61,14 @@ public class AmazonMainPage extends AbstractPage{
         return new AmazonMainPage(getDriver());
     }
 
-    public String getUserName(){
-        return accountButton.getText().substring(7);
+    public String getUserName() {
+        String userName = accountButton.getText();
+        String[] arrOfStr = userName.split(" ");
+        userName = arrOfStr[1];
+        return userName;
+    }
+
+    public boolean isPageOpened() {
+        return logo.isDisplayed();
     }
 }

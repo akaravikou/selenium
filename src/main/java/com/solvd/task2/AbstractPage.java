@@ -36,8 +36,8 @@ public class AbstractPage implements DriverPool{
         driver.get(pageURL);
     }
 
-    public boolean isPageOpened(AbstractPage page){
-        return driver.getCurrentUrl() != null;
+    public boolean isPageOpened(){
+        return driver.getCurrentUrl().equals(pageURL);
     }
 
     public void buttonClick(WebElement element) {
