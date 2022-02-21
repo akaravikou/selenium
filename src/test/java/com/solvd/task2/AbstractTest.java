@@ -28,6 +28,7 @@ public class AbstractTest implements DriverPool {
         desiredCapabilities.setBrowserName(PropertyReader.readProperty("browser"));
         try {
             WebDriver driver = new RemoteWebDriver(new URL(PropertyReader.readProperty("seleniumHost")), desiredCapabilities);
+            setDriver(driver);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

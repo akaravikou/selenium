@@ -14,4 +14,8 @@ public interface DriverPool {
         }
         return driver;
     }
+
+    default void setDriver(WebDriver driver){
+        drivers.set(driver);
+    }
     }
