@@ -63,8 +63,8 @@ public class AmazonShopTest extends AbstractTest {
     @Test(dataProvider = "typeOfClothing")
     public void checkSearchTypeOfClothingTest(String type) {
         AmazonMainPage amazonMainPage = new AmazonMainPage(getDriver());
-        Assert.assertTrue(amazonMainPage.isPageOpened(), "Main page isn't opened");
         amazonMainPage.openPage();
+        Assert.assertTrue(amazonMainPage.isPageOpened(), "Main page isn't opened");
         amazonMainPage.clickSearchInput();
         amazonMainPage.enterInput(type);
 
