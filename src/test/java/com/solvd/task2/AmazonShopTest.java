@@ -37,7 +37,9 @@ public class AmazonShopTest extends AbstractTest {
 
         SearchResultPage searchResultPage = amazonMainPage.clickSearchButton();
 
-        ProductPage productPage = searchResultPage.clickOnProductByIndex();
+        searchResultPage.clickOnProductByIndex(100);
+
+        ProductPage productPage = new ProductPage(getDriver());
 
         productPage.clickHardcoverButton();
         productPage.clickAddToCartButton();
@@ -68,6 +70,7 @@ public class AmazonShopTest extends AbstractTest {
         SearchResultPage searchResultPage = amazonMainPage.clickSearchButton();
         
         Assert.assertNotEquals(searchResultPage.getProductNumber(),0L,"There are no products with this type - " + type);
+
 
         SoftAssert softAssert = new SoftAssert();
         searchResultPage.getProductTitle().forEach(title -> {

@@ -3,7 +3,6 @@ package com.solvd.task2;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,7 +12,7 @@ public class SearchResultPage extends AbstractPage {
     @FindBy(css = "[data-component-type = 's-result-info-bar']")
     private WebElement infoBar;
 
-    @FindBy(css = "[class*='s-matching-dir sg-col-16-of-20']>.sg-col-inner")
+    @FindBy(xpath = "//*[contains(@class, 's-main-slot s-result-list s-search-results')]//*[contains(@class, 's-title-instructions-style')]")
     private List<WebElement> productBlocks;
 
     @FindBy(css = "[data-index='2']")
@@ -40,9 +39,13 @@ public class SearchResultPage extends AbstractPage {
                 .collect(Collectors.toList());
     }
 
-    public ProductPage clickOnProductByIndex(){
-        buttonClick(firstSearchResult);
-        return new ProductPage(getDriver());
+    public void clickOnProductByIndex(Integer index){
+        if(productBlocks.size()<index) {
+            throw new RuntimeException("This index not exist");
+        } else {
+            WebElement product = productBlocks.get(index);
+            buttonClick(product);
+        }
     }
 
     public boolean isPageOpened(){
