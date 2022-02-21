@@ -41,21 +41,14 @@ public class AmazonMainPage extends AbstractPage {
     }
 
     public SearchResultPage clickSearchButton() {
-        SearchResultPage searchResultPage = null;
-        if(isPageOpened()) {
             buttonClick(searchButton);
-            searchResultPage = new SearchResultPage(getDriver());
-        }
-        return searchResultPage;
+            return new SearchResultPage(getDriver());
     }
 
     public SignInPage clickSignInButton() {
-        SignInPage signInPage = null;
-        if (isPageOpened()) {
             buttonClick(signInButton);
-            signInPage = new SignInPage(getDriver());
-        }
-        return signInPage;
+            return new SignInPage(getDriver());
+
     }
 
     public AmazonMainPage clickSearchInput() {
@@ -68,9 +61,5 @@ public class AmazonMainPage extends AbstractPage {
         String[] arrOfStr = userName.split(" ");
         userName = arrOfStr[1];
         return userName;
-    }
-
-    public boolean isPageOpened() {
-        return logo.isDisplayed();
     }
 }

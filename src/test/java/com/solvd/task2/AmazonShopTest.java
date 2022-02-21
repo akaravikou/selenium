@@ -16,11 +16,11 @@ public class AmazonShopTest extends AbstractTest {
     public void checkSignInTest() {
 
         AmazonMainPage amazonMainPage = new AmazonMainPage(getDriver());
-
         amazonMainPage.openPage();
+        Assert.assertTrue(amazonMainPage.isPageOpened(), "Main page isn't opened");
 
         SignInPage signInPage = amazonMainPage.clickSignInButton();
-
+        Assert.assertTrue(signInPage.isPageOpened(), "Sign in page isn't opened");
         signInPage.clickEmailMobileField().inputEmailMobileField(PropertyReader.readProperty("email"));
         signInPage.clickContinueButton().clickPasswordField().inputPasswordField(PropertyReader.readProperty("password"));
         signInPage.clickSignInButton();
@@ -33,26 +33,26 @@ public class AmazonShopTest extends AbstractTest {
     public void checkAddItemInBasketTest() {
         AmazonMainPage amazonMainPage = new AmazonMainPage(getDriver());
         amazonMainPage.openPage();
+        Assert.assertTrue(amazonMainPage.isPageOpened(), "Main page isn't opened");
         amazonMainPage.clickSearchInput().enterInput(PropertyReader.readProperty("input"));
 
         SearchResultPage searchResultPage = amazonMainPage.clickSearchButton();
-
+        Assert.assertTrue(searchResultPage.isPageOpened(), "Search result page isn't opened");
         searchResultPage.clickOnProductByIndex(100);
 
         ProductPage productPage = new ProductPage(getDriver());
-
+        Assert.assertTrue(productPage.isPageOpened(), "Product page isn't opened");
         productPage.clickHardcoverButton();
         productPage.clickAddToCartButton();
 
         ShoppingCartPage shoppingCartPage = productPage.clickBasketButton();
+        Assert.assertTrue(shoppingCartPage.isPageOpened(), "Shopping cart page isn't opened");
 
-        Assert.assertTrue(shoppingCartPage.getTitleText().toLowerCase(Locale.ROOT).contains("one percenter revolution"),
-                "Product in Shopping Cart with incorrect title.");
+        Assert.assertTrue(shoppingCartPage.getTitleText().toLowerCase(Locale.ROOT).contains(PropertyReader.readProperty("input")),
+                "Product in shopping cart with incorrect title.");
 
         SignInPage signInPage = shoppingCartPage.clickProceedToCheckoutButton();
-
-        Assert.assertTrue(signInPage.getEmailMobileFieldText().toLowerCase(Locale.ROOT).contains("email or mobile phone number"),
-                "Redirect in wrong page.");
+        Assert.assertTrue(signInPage.isPageOpened(), "Sign in page isn't opened");
     }
 
     @DataProvider(name = "typeOfClothing")
@@ -63,14 +63,14 @@ public class AmazonShopTest extends AbstractTest {
     @Test(dataProvider = "typeOfClothing")
     public void checkSearchTypeOfClothingTest(String type) {
         AmazonMainPage amazonMainPage = new AmazonMainPage(getDriver());
+        Assert.assertTrue(amazonMainPage.isPageOpened(), "Main page isn't opened");
         amazonMainPage.openPage();
         amazonMainPage.clickSearchInput();
         amazonMainPage.enterInput(type);
 
         SearchResultPage searchResultPage = amazonMainPage.clickSearchButton();
-        
+        Assert.assertTrue(searchResultPage.isPageOpened(), "Search result page isn't opened");
         Assert.assertNotEquals(searchResultPage.getProductNumber(),0L,"There are no products with this type - " + type);
-
 
         SoftAssert softAssert = new SoftAssert();
         searchResultPage.getProductTitle().forEach(title -> {

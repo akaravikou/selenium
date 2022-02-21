@@ -27,19 +27,15 @@ public class ShoppingCartPage extends AbstractPage {
     }
 
     public String getTitleText(){
-        isPageOpened();
         return title.getText();
     }
 
     public SignInPage clickProceedToCheckoutButton() {
-        SignInPage signInPage = null;
-        if (isPageOpened()) {
             buttonClick(proceedToCheckoutButton);
-            signInPage = new SignInPage(getDriver());
-        }
-        return signInPage;
+            return new SignInPage(getDriver());
     }
 
+    @Override
     public boolean isPageOpened(){
         return activeCart.isDisplayed();
     }

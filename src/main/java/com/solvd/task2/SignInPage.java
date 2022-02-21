@@ -59,8 +59,8 @@ public class SignInPage extends AbstractPage {
         return new SignInPage(getDriver());
     }
 
-    public String getEmailMobileFieldText(){
-        isPageOpened();
-        return emailMobileField.getText();
+    @Override
+    public boolean isPageOpened() {
+        return emailMobileField.isDisplayed();
     }
 }

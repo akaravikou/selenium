@@ -29,7 +29,6 @@ public class SearchResultPage extends AbstractPage {
     }
 
     public Long getProductNumber(){
-        isPageOpened();
         return (long) productBlocks.size();
     }
 
@@ -48,6 +47,7 @@ public class SearchResultPage extends AbstractPage {
         }
     }
 
+    @Override
     public boolean isPageOpened(){
         return infoBar.isDisplayed();
     }
