@@ -15,6 +15,8 @@ public class PropertyReader {
     public static final String PASSWORD;
     public static final String INPUT;
     public static final String USERNAME;
+    public static final String BROWSER;
+    public static final String SELENIUM_HOST;
 
     static{
         URL = readProperty("url");
@@ -24,6 +26,8 @@ public class PropertyReader {
         PASSWORD = readProperty("password");
         INPUT = readProperty("input");
         USERNAME = readProperty("userName");
+        BROWSER = readProperty("browser");
+        SELENIUM_HOST = readProperty("seleniumHost");
     }
 
     public static PropertyReader getInstance(){
