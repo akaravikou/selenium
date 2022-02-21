@@ -41,19 +41,21 @@ public class AmazonMainPage extends AbstractPage {
     }
 
     public SearchResultPage clickSearchButton() {
+        SearchResultPage searchResultPage = null;
         if(isPageOpened()) {
             buttonClick(searchButton);
-            return new SearchResultPage(getDriver());
+            searchResultPage = new SearchResultPage(getDriver());
         }
-        else return null;
+        return searchResultPage;
     }
 
     public SignInPage clickSignInButton() {
+        SignInPage signInPage = null;
         if (isPageOpened()) {
             buttonClick(signInButton);
-            return new SignInPage(getDriver());
+            signInPage = new SignInPage(getDriver());
         }
-        else return null;
+        return signInPage;
     }
 
     public AmazonMainPage clickSearchInput() {

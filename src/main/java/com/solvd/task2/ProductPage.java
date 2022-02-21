@@ -39,8 +39,12 @@ public class ProductPage extends AbstractPage {
     }
 
     public ShoppingCartPage clickBasketButton(){
+        ShoppingCartPage shoppingCartPage = null;
+        if(isPageOpened()){
         buttonClick(basketButton);
-        return new ShoppingCartPage(getDriver());
+        shoppingCartPage = new ShoppingCartPage(getDriver());
+        }
+        return shoppingCartPage;
     }
 
     public boolean isPageOpened(){

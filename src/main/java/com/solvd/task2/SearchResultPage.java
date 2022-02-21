@@ -30,15 +30,13 @@ public class SearchResultPage extends AbstractPage {
     }
 
     public Long getProductNumber(){
-        if(isPageOpened()) {
-            return (long) productBlocks.size();
-        }
-        return null;
+        isPageOpened();
+        return (long) productBlocks.size();
     }
 
     public List<String> getProductTitle(){
         return productBlocks.stream()
-                .map(productBlock -> productBlock.getText())
+                .map(WebElement::getText)
                 .collect(Collectors.toList());
     }
 

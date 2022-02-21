@@ -27,15 +27,17 @@ public class ShoppingCartPage extends AbstractPage {
     }
 
     public String getTitleText(){
-        if(isPageOpened()){
-            return title.getText();
-        }
-        return null;
+        isPageOpened();
+        return title.getText();
     }
 
-    public SignInPage clickProceedToCheckoutButton(){
-        buttonClick(proceedToCheckoutButton);
-        return new SignInPage(getDriver());
+    public SignInPage clickProceedToCheckoutButton() {
+        SignInPage signInPage = null;
+        if (isPageOpened()) {
+            buttonClick(proceedToCheckoutButton);
+            signInPage = new SignInPage(getDriver());
+        }
+        return signInPage;
     }
 
     public boolean isPageOpened(){

@@ -60,6 +60,7 @@ public class SignInPage extends AbstractPage {
     }
 
     public String getEmailMobileFieldText(){
+        isPageOpened();
         return emailMobileField.getText();
     }
 }
