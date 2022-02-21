@@ -3,11 +3,8 @@ package com.solvd.task2;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 public class ProductPage extends AbstractPage {
-
-    private WebDriver driver;
 
     @FindBy(css = "#productTitle")
     private WebElement title;
@@ -21,19 +18,31 @@ public class ProductPage extends AbstractPage {
     @FindBy(css = "#nav-cart-count")
     private WebElement basketButton;
 
-    public ProductPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
+//    public ProductPage(WebDriver driver, String pageUrl) {
+//        super(driver, pageUrl);
+//        PageFactory.initElements(driver, this);
+//    }
+
+    public ProductPage(WebDriver driver){
+        super(driver);
+        setPageURL(driver.getCurrentUrl());
     }
 
     public void clickHardcoverButton(){
-        buttonClick(driver, hardcoverButton);
+        buttonClick(hardcoverButton);
     }
 
     public void clickAddToCartButton(){
-        buttonClick(driver, addToCartButton);
+        buttonClick(addToCartButton);
     }
 
-    public void clickBasketButton(){
-        buttonClick(driver, basketButton);
+    public ShoppingCartPage clickBasketButton(){
+        buttonClick(basketButton);
+        return new ShoppingCartPage(getDriver());
+    }
+
+    @Override
+    public boolean isPageOpened(){
+        return title.isDisplayed();
     }
 }

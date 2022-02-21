@@ -7,8 +7,6 @@ import org.openqa.selenium.support.PageFactory;
 
 public class SignInPage extends AbstractPage {
 
-    private WebDriver driver;
-
     @FindBy(css = "#ap_email")
     private WebElement emailMobileField;
 
@@ -21,36 +19,48 @@ public class SignInPage extends AbstractPage {
     @FindBy(css = "#signInSubmit")
     private WebElement signInButton;
 
-    public SignInPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
-        this.driver = driver;
+//    public SignInPage(WebDriver driver, String pageUrl) {
+//        super(driver, pageUrl);
+//        PageFactory.initElements(driver, this);
+//    }
+
+    public SignInPage(WebDriver driver){
+        super(driver);
+        setPageURL(driver.getCurrentUrl());
     }
 
-    public void clickEmailMobileField(){
-        buttonClick(driver, emailMobileField);
+    public SignInPage clickEmailMobileField(){
+        buttonClick(emailMobileField);
+        return new SignInPage(getDriver());
     }
 
-    public void inputEmailMobileField(String input){
-        sendKeys(driver, emailMobileField, input);
+    public SignInPage inputEmailMobileField(String input){
+        sendKeys(emailMobileField, input);
+        return new SignInPage(getDriver());
     }
 
-    public void clickContinueButton() {
-        buttonClick(driver, continueButton);
+    public SignInPage clickContinueButton() {
+        buttonClick(continueButton);
+        return new SignInPage(getDriver());
     }
 
-    public void clickPasswordField() {
-        buttonClick(driver, passwordField);
+    public SignInPage clickPasswordField() {
+        buttonClick(passwordField);
+        return new SignInPage(getDriver());
     }
 
-    public void inputPasswordField(String input) {
-        sendKeys(driver, passwordField, input);
+    public SignInPage inputPasswordField(String input) {
+        sendKeys(passwordField, input);
+        return new SignInPage(getDriver());
     }
 
-    public void clickSignInButton(){
-        buttonClick(driver, signInButton);
+    public SignInPage clickSignInButton(){
+        buttonClick(signInButton);
+        return new SignInPage(getDriver());
     }
 
-    public WebElement getEmailMobileField(){
-        return emailMobileField;
+    @Override
+    public boolean isPageOpened() {
+        return emailMobileField.isDisplayed();
     }
 }

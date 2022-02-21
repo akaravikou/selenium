@@ -3,7 +3,7 @@
 
 <suite name="amazon">
 
-    <test name="amazonAbstractTest" parallel="methods" thread-count="5">
+    <test name="amazonAbstractTest" parallel="methods" thread-count="2">
         <classes>
             <class name="com.solvd.task2.AmazonShopTest">
                 <methods>

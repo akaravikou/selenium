@@ -5,9 +5,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class AmazonMainPage extends AbstractPage{
+import java.lang.module.Configuration;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
-    private WebDriver driver;
+public class AmazonMainPage extends AbstractPage {
+
+    @FindBy(css = "#nav-logo-sprites")
+    private WebElement logo;
 
     @FindBy(css = "#twotabsearchtextbox")
     private WebElement searchInput;
@@ -21,29 +26,40 @@ public class AmazonMainPage extends AbstractPage{
     @FindBy(css = "#nav-link-accountList-nav-line-1")
     private WebElement accountButton;
 
-    public AmazonMainPage(WebDriver driver){
-        PageFactory.initElements(driver, this);
-        driver.get(PropertyReader.readProperty("url"));
-        this.driver = driver;
+//    public AmazonMainPage(WebDriver driver){
+//        super(driver, PropertyReader.readProperty("url"));
+//        PageFactory.initElements(driver, this);
+//    }
+
+    public AmazonMainPage(WebDriver driver) {
+        super(driver);
+        setPageURL(PropertyReader.readProperty("url"));
     }
 
-    public void enterInput(String itemName){
-        sendKeys(driver, searchInput, itemName);
+    public void enterInput(String itemName) {
+        sendKeys(searchInput, itemName);
     }
 
-    public void clickSearchButton(){
-        buttonClick(driver, searchButton);
+    public SearchResultPage clickSearchButton() {
+            buttonClick(searchButton);
+            return new SearchResultPage(getDriver());
     }
 
-    public void clickSignInButton() {
-        buttonClick(driver, signInButton);
+    public SignInPage clickSignInButton() {
+            buttonClick(signInButton);
+            return new SignInPage(getDriver());
+
     }
 
-    public void clickSearchInput() {
-        buttonClick(driver, searchInput);
+    public AmazonMainPage clickSearchInput() {
+        buttonClick(searchInput);
+        return new AmazonMainPage(getDriver());
     }
 
-    public String getUserName(){
-        return accountButton.getText();
+    public String getUserName() {
+        String userName = accountButton.getText();
+        String[] arrOfStr = userName.split(" ");
+        userName = arrOfStr[1];
+        return userName;
     }
 }
