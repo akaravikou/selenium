@@ -1,5 +1,7 @@
 package com.solvd.task2;
 
+import com.solvd.task2.page.*;
+import com.solvd.task2.service.PropertyReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;

@@ -1,7 +1,7 @@
-package com.solvd.task2;
+package com.solvd.task2.service;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.AbstractDriverOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
@@ -24,10 +24,11 @@ public interface DriverPool {
     }
 
     default void setDriver() {
-        DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
-        desiredCapabilities.setBrowserName(PropertyReader.readProperty("browser"));
+//        DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+//        desiredCapabilities.setBrowserName(PropertyReader.readProperty("browser"));
+        AbstractDriverOptions<?> option = OptionFactory.createOption(Browser.valueOf(PropertyReader.readProperty("browser").toUpperCase()));
         try {
-            WebDriver driver = new RemoteWebDriver(new URL(PropertyReader.readProperty("seleniumHost")), desiredCapabilities);
+            WebDriver driver = new RemoteWebDriver(new URL(PropertyReader.readProperty("seleniumHost")), option);
             drivers.set(driver);
         } catch (MalformedURLException e) {
             LOGGER.error("Error in setDriver method,DriverPool interface : " + e.getMessage());

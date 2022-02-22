@@ -1,5 +1,6 @@
-package com.solvd.task2;
+package com.solvd.task2.page;
 
+import com.solvd.task2.service.DriverPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
@@ -10,7 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class AbstractPage implements DriverPool{
+public class AbstractPage implements DriverPool {
 
     private static final Logger LOGGER = LogManager.getLogger(AbstractPage.class);
     private static final Duration TIMEOUT = Duration.ofSeconds(100);

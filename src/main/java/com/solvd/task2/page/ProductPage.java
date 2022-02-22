@@ -1,4 +1,4 @@
-package com.solvd.task2;
+package com.solvd.task2.page;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
