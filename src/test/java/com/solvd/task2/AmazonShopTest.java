@@ -14,7 +14,6 @@ public class AmazonShopTest extends AbstractTest {
 
     @Test
     public void checkSignInTest() {
-
         AmazonMainPage amazonMainPage = new AmazonMainPage(getDriver());
         amazonMainPage.openPage();
         Assert.assertTrue(amazonMainPage.isPageOpened(), "Main page isn't opened");
@@ -38,7 +37,7 @@ public class AmazonShopTest extends AbstractTest {
 
         SearchResultPage searchResultPage = amazonMainPage.clickSearchButton();
         Assert.assertTrue(searchResultPage.isPageOpened(), "Search result page isn't opened");
-        searchResultPage.clickOnProductByIndex(100);
+        searchResultPage.clickOnProductByIndex(0);
 
         ProductPage productPage = new ProductPage(getDriver());
         Assert.assertTrue(productPage.isPageOpened(), "Product page isn't opened");
