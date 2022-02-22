@@ -1,6 +1,7 @@
 package com.solvd.task2;
 
 import com.solvd.task2.page.*;
+import com.solvd.task2.service.Property;
 import com.solvd.task2.service.PropertyReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,12 +23,12 @@ public class AmazonShopTest extends AbstractTest {
 
         SignInPage signInPage = amazonMainPage.clickSignInButton();
         Assert.assertTrue(signInPage.isPageOpened(), "Sign in page isn't opened");
-        signInPage.clickEmailMobileField().inputEmailMobileField(PropertyReader.readProperty("email"));
-        signInPage.clickContinueButton().clickPasswordField().inputPasswordField(PropertyReader.readProperty("password"));
+        signInPage.clickEmailMobileField().inputEmailMobileField(PropertyReader.getProperty(Property.EMAIl));
+        signInPage.clickContinueButton().clickPasswordField().inputPasswordField(PropertyReader.getProperty(Property.PASSWORD));
         signInPage.clickSignInButton();
 
         String userName = amazonMainPage.getUserName();
-        Assert.assertEquals(userName, PropertyReader.readProperty("userName"), "Name of account should contains user name");
+        Assert.assertEquals(userName, PropertyReader.getProperty(Property.USERNAME), "Name of account should contains user name");
     }
 
     @Test
@@ -35,7 +36,7 @@ public class AmazonShopTest extends AbstractTest {
         AmazonMainPage amazonMainPage = new AmazonMainPage(getDriver());
         amazonMainPage.openPage();
         Assert.assertTrue(amazonMainPage.isPageOpened(), "Main page isn't opened");
-        amazonMainPage.clickSearchInput().enterInput(PropertyReader.readProperty("input"));
+        amazonMainPage.clickSearchInput().enterInput(PropertyReader.getProperty(Property.INPUT));
 
         SearchResultPage searchResultPage = amazonMainPage.clickSearchButton();
         Assert.assertTrue(searchResultPage.isPageOpened(), "Search result page isn't opened");
@@ -49,7 +50,7 @@ public class AmazonShopTest extends AbstractTest {
         ShoppingCartPage shoppingCartPage = productPage.clickBasketButton();
         Assert.assertTrue(shoppingCartPage.isPageOpened(), "Shopping cart page isn't opened");
 
-        Assert.assertTrue(shoppingCartPage.getTitleText().toLowerCase(Locale.ROOT).contains(PropertyReader.readProperty("input")),
+        Assert.assertTrue(shoppingCartPage.getTitleText().toLowerCase(Locale.ROOT).contains(PropertyReader.getProperty(Property.INPUT)),
                 "Product in shopping cart with incorrect title.");
 
         SignInPage signInPage = shoppingCartPage.clickProceedToCheckoutButton();

@@ -1,5 +1,7 @@
 package com.solvd.task2.service;
 
+import org.openqa.selenium.safari.SafariOptions;
+
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
@@ -8,26 +10,40 @@ public class PropertyReader {
 
     private static volatile PropertyReader instance;
 
-    public static final String URL;
-    public static final String DRIVER;
-    public static final String CHROMEDRIVER;
-    public static final String EMAIL;
-    public static final String PASSWORD;
-    public static final String INPUT;
-    public static final String USERNAME;
-    public static final String BROWSER;
-    public static final String SELENIUM_HOST;
-
-    static{
-        URL = readProperty("url");
-        DRIVER = readProperty("driver");
-        CHROMEDRIVER = readProperty("chromedriver");
-        EMAIL = readProperty("email");
-        PASSWORD = readProperty("password");
-        INPUT = readProperty("input");
-        USERNAME = readProperty("userName");
-        BROWSER = readProperty("browser");
-        SELENIUM_HOST = readProperty("seleniumHost");
+    public static String getProperty(Property propertyName){
+        String value = null;
+        switch(propertyName){
+            case URL:
+                value = readProperty("url");
+                break;
+            case DRIVER:
+                value = readProperty("driver");
+                break;
+            case CHROMEDRIVER:
+                value = readProperty("chromedriver");
+                break;
+            case EMAIl:
+                value = readProperty("email");
+                break;
+            case PASSWORD:
+                value = readProperty("password");
+                break;
+            case INPUT:
+                value = readProperty("input");
+                break;
+            case USERNAME:
+                value = readProperty("userName");
+                break;
+            case BROWSER:
+                value = readProperty("browser");
+                break;
+            case SELENIUM_HOST:
+                value = readProperty("seleniumHost");
+                break;
+            default:
+                break;
+        }
+        return value;
     }
 
     public static PropertyReader getInstance(){

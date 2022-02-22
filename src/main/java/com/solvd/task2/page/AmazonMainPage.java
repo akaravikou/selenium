@@ -1,5 +1,6 @@
 package com.solvd.task2.page;
 
+import com.solvd.task2.service.Property;
 import com.solvd.task2.service.PropertyReader;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -29,7 +30,7 @@ public class AmazonMainPage extends AbstractPage {
 
     public AmazonMainPage(WebDriver driver) {
         super(driver);
-        setPageURL(PropertyReader.readProperty("url"));
+        setPageURL(PropertyReader.getProperty(Property.URL));
     }
 
     public void enterInput(String itemName) {
