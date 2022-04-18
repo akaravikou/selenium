@@ -3,6 +3,13 @@
 
 <suite name="amazon">
 
+    <parameter name="suiteOwner" value="qpsdemo"/>
+    <parameter name="jenkinsJobName" value="Job1"/>
+    <parameter name="jenkinsJobType" value="api"/>
+    <parameter name="jenkinsEmail" value="test@qaprosoft.com"/>
+    <parameter name="jenkinsEnvironments" value="DEMO"/>
+
+
     <test name="amazonAbstractTest" parallel="methods" thread-count="2">
         <classes>
             <class name="com.solvd.task2.AmazonShopTest">
@@ -14,5 +21,4 @@
             </class>
         </classes>
     </test>
-
 </suite>
